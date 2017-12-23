@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zrxjuly.wechat_read.dao.WeChatUserInfoDAO">
+
+	<!-- 保存用户信息. -->
+	<insert id="saveUserInfo" parameterType="WeChatUserInfo">
+		insert into userinfo
+		values
+		(#{openId},
+		#{subscribe},
+		now(),
+		#{nickname},
+		#{sex},
+		#{country},
+		#{province},
+		#{city},
+		#{language},
+		#{headImgUrl},
+		#{latitude},
+		#{longitude},
+		#{precision})
+	</insert>
+	
+	<!-- 更新用户地理位置信息. -->
+	<update id="updateUserLocation" parameterType="WeChatUserInfo">
+		update userinfo 
+		set 
+		latitude = #{latitude},
+		longitude = #{longitude},
+		precisions = #{precisions} 
+		where openid = #{openId} 
+	</update>
+	
+	<update id="cancleSubscribe" parameterType="String">
+		update userinfo
+		set
+		subscribe = 0
+		where openid = #{openId}
+	</update>
+</mapper>
