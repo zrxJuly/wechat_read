@@ -85,7 +85,7 @@ public class CoreServiceImpl implements CoreService {
 					textMessage.setContent("一件事，坚持一周是心血来潮，坚持一年是喜欢，坚持一生，才是深到骨子里的热爱~~\n\n欢迎加入我的小江湖——享悦读^.^\n\n*享悦读，爱阅读* ");
 					respXml = MessageUtil.messageToXml(textMessage);
 					
-					// TODO: 判断用户以前是否关注过该公众号，若未关注，新增用户；若关注过，将用户的subscribe改为1.
+					// TODO: 1.判断用户以前是否关注过该公众号，若未关注，新增用户；若关注过，将用户的subscribe改为1.
 					String accessToken = CommonUtil.getToken("wx70884f69b015fb7a", "b96fda8ef5c57ec321d9d5f473c272d2").getAccessToken();
 					WeChatUserInfo weChatUserInfo = AdvancedUtil.getUserInfo(accessToken, fromUserName);
 					if (weChatUserInfo != null) {
