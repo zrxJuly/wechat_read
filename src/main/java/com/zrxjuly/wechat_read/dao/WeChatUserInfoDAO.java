@@ -42,4 +42,10 @@ public interface WeChatUserInfoDAO {
 	 * @param fromUserName
 	 */
 	public void userResubscribe(String fromUserName);
+	
+	/**
+	 * 更新用户信息.
+	 * @param weChatUserInfo
+	 */
+	public void updateUserInfo(WeChatUserInfo weChatUserInfo);
 }

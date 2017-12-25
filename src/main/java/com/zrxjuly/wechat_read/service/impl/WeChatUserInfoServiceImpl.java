@@ -26,4 +26,9 @@ public class WeChatUserInfoServiceImpl implements WeChatUserInfoService {
 		return weChatUserInfoDAO.selectUserByOpenId(openId);
 	}
 
+	@Override
+	public void updateUserInfo(WeChatUserInfo weChatUserInfo) {
+		weChatUserInfoDAO.updateUserInfo(weChatUserInfo);
+	}
+
 }

@@ -84,4 +84,18 @@ public class WechatReadApplicationTests {
 	public void testUserResubscribe() {
 		weChatUserInfoDAO.userResubscribe(fromUserName);
 	}
+	
+	/**
+	 * 更新用户信息.
+	 */
+	@Test
+	public void testUpdateUserInfo() {
+		WeChatUserInfo weChatUserInfo = new WeChatUserInfo();
+		weChatUserInfo.setOpenId("o2eJmwqNvRp6Msoe-Rgh13HAmPIc");
+		weChatUserInfo.setNickname("hoahao");
+		weChatUserInfo.setEmail("22222222222");
+		weChatUserInfo.setPhoneNumber("11111111111");
+		weChatUserInfo.setSex(1);
+		weChatUserInfoDAO.updateUserInfo(weChatUserInfo);
+	}
 }

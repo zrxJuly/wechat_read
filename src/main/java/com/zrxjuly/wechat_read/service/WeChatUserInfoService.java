@@ -15,4 +15,10 @@ public interface WeChatUserInfoService {
 	 * @return
 	 */
 	WeChatUserInfo selectUserByOpenId(String openId);
+	
+	/**
+	 * 更新用户信息.
+	 * @param weChatUserInfo
+	 */
+	void updateUserInfo(WeChatUserInfo weChatUserInfo);
 }

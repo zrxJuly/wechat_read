@@ -47,7 +47,13 @@ public class WeChatUserInfo {
 	
 	// 用户地理位置-精度.
 	private String precisions;
-
+	
+	// 手机号.
+	private String phoneNumber;
+	
+	// 邮箱.
+	private String email;
+	
 	public String getOpenId() {
 		return openId;
 	}
@@ -152,12 +158,29 @@ public class WeChatUserInfo {
 		this.precisions = precisions;
 	}
 
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
 		return "WeChatUserInfo [openId=" + openId + ", subscribe=" + subscribe + ", subscribeTime=" + subscribeTime
 				+ ", nickname=" + nickname + ", sex=" + sex + ", country=" + country + ", province=" + province
 				+ ", city=" + city + ", language=" + language + ", headImgUrl=" + headImgUrl + ", latitude=" + latitude
-				+ ", longitude=" + longitude + ", precisions=" + precisions + "]";
+				+ ", longitude=" + longitude + ", precisions=" + precisions + ", phoneNumber=" + phoneNumber
+				+ ", email=" + email + "]";
 	}
-	
+
 }
