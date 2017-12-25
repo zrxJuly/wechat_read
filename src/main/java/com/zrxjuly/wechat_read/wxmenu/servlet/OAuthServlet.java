@@ -4,14 +4,17 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.zrxjuly.wechat_read.wxmenu.pojo.SNSUserInfo;
+import com.zrxjuly.wechat_read.model.WeChatUserInfo;
+import com.zrxjuly.wechat_read.service.WeChatUserInfoService;
 import com.zrxjuly.wechat_read.wxmenu.pojo.WeixinOauth2Token;
 import com.zrxjuly.wechat_read.wxmenu.util.AdvancedUtil;
 
@@ -25,15 +28,24 @@ import com.zrxjuly.wechat_read.wxmenu.util.AdvancedUtil;
  * @since : 1.0
  *
  */
-public class OAuthServlet extends HttpServlet {
+@RestController
+@RequestMapping("userInfo")
+public class OAuthServlet {
 
-	private static final long serialVersionUID = -4534185449607643580L;
-
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * 注入weChatUserInfoService.
+	 */
+	@Autowired
+	private WeChatUserInfoService weChatUserInfoService;
+	
+	@RequestMapping(value= "/userInfoEdit", method=RequestMethod.GET)
+	public ModelAndView userInfoEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 设置请求和响应的编码方式.
 		request.setCharacterEncoding("gb2312");
 		response.setCharacterEncoding("gb2312");
+		
+		ModelAndView mav = new ModelAndView();
 		
 		// 用户同意授权后，能获取到code.
 		String code = request.getParameter("code");
@@ -50,25 +62,25 @@ public class OAuthServlet extends HttpServlet {
 			// 通过开发者的appId和appSecret和用户同意授权后获取到的code获取网页授权相关信息.
 			WeixinOauth2Token weixinOauth2Token = AdvancedUtil.getOauth2AccessToken(appId, appSecret, code);
 			
-			//网页授权接口访问凭证.
-			String accessToken = weixinOauth2Token.getAccessToken();
-			System.out.println("accesstoken=======" + accessToken);
+			//网页授权接口访问凭证-网页授权用到.
+			// String accessToken = weixinOauth2Token.getAccessToken();
 			
 			// 用户标识.
 			String openId = weixinOauth2Token.getOpenId();
 			
-			// 获取用户信息.
-			SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
+			// 获取用户信息-网页授权用到.
+			// SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
+			
+			// 通过openId查询用户信息 回显.
+			WeChatUserInfo weChatUserInfo = weChatUserInfoService.selectUserByOpenId(openId);
 			
 			// 设置要传递的参数.
-			request.setAttribute("snsUserInfo", snsUserInfo);
+			// mav.addObject("userInfo", snsUserInfo);
+			mav.addObject("userInfo", weChatUserInfo);
+			mav.setViewName("user_authorize");
 		}
 		
-		// 跳转到index.jsp
-		request.getRequestDispatcher("/WEB-INF/view/user_authorize.jsp").forward(request, response);
+		return mav;
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
 }

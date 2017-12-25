@@ -71,15 +71,17 @@ public class MenuManager {
 
 		// 主菜单3下的子菜单1-----链接按钮.
 		ViewButton mainBtn3Sub1 = new ViewButton();
-		mainBtn3Sub1.setName("完善信息");
+		mainBtn3Sub1.setName("用户信息");
 		mainBtn3Sub1.setType("view");
 		// 对URL进行编码.TODO:此处的公网的地址在每次重启映射工具的时候随forwarding改变.
-		String oauthUrl = "http://tz8q67.natappfree.cc/wechat_read/oauthServlet";
+		String oauthUrl = "http://5ze33x.natappfree.cc/userInfo/userInfoEdit";
+		oauthUrl = CommonUtil.urlEncodeUTF8(oauthUrl);
 		System.out.println(CommonUtil.urlEncodeUTF8(oauthUrl));
 		
 		String redirect_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
 				+ "&redirect_uri=" + oauthUrl
 				+ "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+		
 		mainBtn3Sub1.setUrl(redirect_url);
 
 		// 主菜单1.

@@ -1,4 +1,3 @@
-<%-- <%@page import="com.zrxjuly.read.wxpojo.SNSUserInfo"%> --%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%
@@ -27,16 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</header>
 		<section class="ui-container ui-center">
 			<form action="#">
-				<%-- <%
-					// 获取由OAuthServlet传入的参数.
-					SNSUserInfo user = (SNSUserInfo)request.getAttribute("snsUserInfo");
-					if (null != user) {
-				%> --%>
 				<div class="ui-form ui-border-t">
-					<%-- <input type="hidden" value="<%=user.getOpenId() %>" name="open_id"/> --%>
+					<input type="text" value="${userInfo.openId }" name="open_id"/>
 					<div class="ui-form-item ui-border-b">
 						<label>昵称</label>
-						<input type="text" placeholder="给自己取个文艺点的名字吧" value="<%-- <%=user.getNickname() %> --%>" />
+						<input type="text" placeholder="给自己取个文艺点的名字吧" value="${userInfo.nickname }" />
 						<a href="#" class="ui-icon-close">
 						</a>
 					</div>

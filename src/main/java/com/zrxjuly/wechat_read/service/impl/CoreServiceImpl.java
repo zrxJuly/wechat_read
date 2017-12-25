@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -85,12 +86,15 @@ public class CoreServiceImpl implements CoreService {
 					textMessage.setContent("一件事，坚持一周是心血来潮，坚持一年是喜欢，坚持一生，才是深到骨子里的热爱~~\n\n欢迎加入我的小江湖——享悦读^.^\n\n*享悦读，爱阅读* ");
 					respXml = MessageUtil.messageToXml(textMessage);
 					
-					// TODO: 1.判断用户以前是否关注过该公众号，若未关注，新增用户；若关注过，将用户的subscribe改为1.
-					String accessToken = CommonUtil.getToken("wx70884f69b015fb7a", "b96fda8ef5c57ec321d9d5f473c272d2").getAccessToken();
+					// 判断用户以前是否关注过该公众号，若未关注，新增用户；若关注过，将用户的subscribe改为1.
+					// 加载wechat.properties属性配置文件信息.
+					ResourceBundle resourceBundle = ResourceBundle.getBundle("wechat");
+					String appId = resourceBundle.getString("appId");
+					String appSecret = resourceBundle.getString("appSecret");
+					String accessToken = CommonUtil.getToken(appId, appSecret).getAccessToken();
 					WeChatUserInfo weChatUserInfo = AdvancedUtil.getUserInfo(accessToken, fromUserName);
 					
 					if (weChatUserInfo != null) {
-						
 						// 验证用户是否关注过公众号.
 						WeChatUserInfo userInfo = weChatUserInfoDAO.selectUserByOpenId(fromUserName);
 						
@@ -98,25 +102,22 @@ public class CoreServiceImpl implements CoreService {
 							
 							// 用户重新关注，将用户的subscribe修改为1.
 							weChatUserInfoDAO.userResubscribe(fromUserName);
+						} else {
+							
+							// 新用户关注，将用户信息保存至数据库.
+							weChatUserInfoDAO.saveUserInfo(weChatUserInfo);
 						}
-						
-						// 将用户信息保存至数据库.
-						weChatUserInfoDAO.saveUserInfo(weChatUserInfo);
 					}
 					
 				} else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
 					
 					// 取消关注,不用给任何回复,并将用户的subscribe修改为0.
 					weChatUserInfoDAO.cancleSubscribe(fromUserName);
-					
 				} else if(eventType.equals(MessageUtil.EVENT_TYPE_LOCATION)) { // 地理位置信息.
-					
 					// 纬度.
 					String latitude = requestMap.get("Latitude");
-					
 					// 经度.
 					String longitude = requestMap.get("Longitude");
-					
 					// 精度.
 					String precision = requestMap.get("Precision");
 					System.out.println("latitude:" + latitude + "\n longitude:" + longitude + "\n precision:" + precision);

@@ -31,11 +31,11 @@ public interface WeChatUserInfoDAO {
 	public Integer cancleSubscribe(String openId);
 	
 	/**
-	 * 验证用户是否关注过公众号.
-	 * @param fromUserName
+	 * 查询用户信息.
+	 * @param openId
 	 * @return
 	 */
-	public WeChatUserInfo selectUserByOpenId(String fromUserName);
+	public WeChatUserInfo selectUserByOpenId(String openId);
 	
 	/**
 	 * 用户重新关注公众号.

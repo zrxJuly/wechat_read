@@ -18,7 +18,7 @@
 		#{headImgUrl},
 		#{latitude},
 		#{longitude},
-		#{precision})
+		#{precisions})
 	</insert>
 	
 	<!-- 更新用户地理位置信息. -->
