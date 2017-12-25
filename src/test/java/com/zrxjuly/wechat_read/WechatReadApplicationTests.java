@@ -22,13 +22,15 @@ public class WechatReadApplicationTests {
 	@Autowired
 	private WeChatUserInfoDAO weChatUserInfoDAO;
 	
+	public static String fromUserName = "o2eJmwkTOremA_mHcWNfEqfVf_bc";
+	
 	/**
 	 * 保存用户信息至数据库.
 	 */
 	@Test
 	public void saveUserInfo() {
 		WeChatUserInfo weChatUserInfo = new WeChatUserInfo();
-		weChatUserInfo.setOpenId("o2eJmwqNvRp6Msoe-Rgh13HAmPIc");
+		weChatUserInfo.setOpenId(fromUserName);
 		weChatUserInfo.setSubscribe(1);
 		weChatUserInfo.setSubscribeTime("2017-12-13");
 		weChatUserInfo.setNickname("July");
@@ -51,7 +53,7 @@ public class WechatReadApplicationTests {
 	@Test
 	public void testUpdateUserLocation() {
 		WeChatUserInfo weChatUserInfo = new WeChatUserInfo();
-		weChatUserInfo.setOpenId("o2eJmwkTOremA_mHcWNfEqfVf_bc");
+		weChatUserInfo.setOpenId(fromUserName);
 		weChatUserInfo.setLatitude("36.632816");
 		weChatUserInfo.setLongitude("117.269501");
 		weChatUserInfo.setPrecisions("30.0000000");
@@ -63,6 +65,23 @@ public class WechatReadApplicationTests {
 	 */
 	@Test
 	public void testCancleSubscribe() {
-		weChatUserInfoDAO.cancleSubscribe("o2eJmwkTOremA_mHcWNfEqfVf_bc");
+		weChatUserInfoDAO.cancleSubscribe(fromUserName);
+	}
+	
+	/**
+	 * 查询用户.
+	 */
+	@Test
+	public void testSelectUserByOpenId() {
+		WeChatUserInfo userinfo = weChatUserInfoDAO.selectUserByOpenId(fromUserName);
+		System.out.println(userinfo);
+	}
+	
+	/**
+	 * 用户重新关注公众号.
+	 */
+	@Test
+	public void testUserResubscribe() {
+		weChatUserInfoDAO.userResubscribe(fromUserName);
 	}
 }

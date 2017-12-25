@@ -29,4 +29,17 @@ public interface WeChatUserInfoDAO {
 	 * @return
 	 */
 	public Integer cancleSubscribe(String openId);
+	
+	/**
+	 * 验证用户是否关注过公众号.
+	 * @param fromUserName
+	 * @return
+	 */
+	public WeChatUserInfo selectUserByOpenId(String fromUserName);
+	
+	/**
+	 * 用户重新关注公众号.
+	 * @param fromUserName
+	 */
+	public void userResubscribe(String fromUserName);
 }

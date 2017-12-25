@@ -88,17 +88,28 @@ public class CoreServiceImpl implements CoreService {
 					// TODO: 1.判断用户以前是否关注过该公众号，若未关注，新增用户；若关注过，将用户的subscribe改为1.
 					String accessToken = CommonUtil.getToken("wx70884f69b015fb7a", "b96fda8ef5c57ec321d9d5f473c272d2").getAccessToken();
 					WeChatUserInfo weChatUserInfo = AdvancedUtil.getUserInfo(accessToken, fromUserName);
+					
 					if (weChatUserInfo != null) {
+						
+						// 验证用户是否关注过公众号.
+						WeChatUserInfo userInfo = weChatUserInfoDAO.selectUserByOpenId(fromUserName);
+						
+						if (userInfo != null) {
+							
+							// 用户重新关注，将用户的subscribe修改为1.
+							weChatUserInfoDAO.userResubscribe(fromUserName);
+						}
+						
 						// 将用户信息保存至数据库.
 						weChatUserInfoDAO.saveUserInfo(weChatUserInfo);
 					}
 					
 				} else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
 					
-					// 取消关注,不用给任何回复,并将用户的subscribe修改为0，若用户重新关注，则将用户的subscribe修改为1.
+					// 取消关注,不用给任何回复,并将用户的subscribe修改为0.
 					weChatUserInfoDAO.cancleSubscribe(fromUserName);
 					
-				} else if(eventType.equals(MessageUtil.EVENT_TYPE_LOCATION)) {
+				} else if(eventType.equals(MessageUtil.EVENT_TYPE_LOCATION)) { // 地理位置信息.
 					
 					// 纬度.
 					String latitude = requestMap.get("Latitude");
@@ -135,7 +146,7 @@ public class CoreServiceImpl implements CoreService {
 						article.setTitle("小王子");
 						
 						// 文章描述.
-						article.setDescription("濡傛灉涓嶅幓閬嶅巻涓栫晫锛屾垜浠氨涓嶇煡閬撲粈涔堟槸鎴戜滑绮剧鍜屾儏鎰熺殑瀵勬墭锛屼絾鎴戜滑涓�鏃﹂亶鍘嗕簡涓栫晫锛屽嵈鍙戠幇鎴戜滑鍐嶄篃鏃犳硶鍥炲埌閭ｇ編濂界殑鍦版柟鍘讳簡銆俓n褰撴垜浠紑濮嬪姹傦紝鎴戜滑灏卞凡缁忓け鍘伙紝鑰屾垜浠笉寮�濮嬪姹傦紝鎴戜滑鏍规湰鏃犳硶鐭ラ亾鑷繁韬竟鐨勪竴鍒囨槸濡傛鍙吹");
+						article.setDescription("重要的东西是看不见的");
 						
 						// 图片的url.
 						article.setPicUrl("/wechat_read/WebRoot/img/little_prince.jpg");
@@ -177,7 +188,7 @@ public class CoreServiceImpl implements CoreService {
 						respXml = MessageUtil.messageToXml(textMessage);
 					}
 				}
-			} else { // 
+			} else { // 处理用户发送的消息.
 				if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // 文本消息.
 					respContent = "读书多了，容颜自然改变，许多时候，自己可能以为许多看过的书籍都成了过眼云烟，不复记忆，其实他们仍是潜在的。\n" +
 							"在气质里，在谈吐上，在胸襟的无涯，当然也可能显露在生活和文字里。\n" +
