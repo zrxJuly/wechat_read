@@ -1,4 +1,4 @@
-package com.zrxjuly.wechat_read.wxmenu.servlet;
+package com.zrxjuly.wechat_read.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,7 +24,7 @@ import com.zrxjuly.wechat_read.wxmenu.util.SignUtil;
  */
 @RestController
 @RequestMapping("wechat_read")
-public class CoreServlet extends HttpServlet {
+public class CoreController extends HttpServlet {
 	private static final long serialVersionUID = -3344978504206357286L;
 	
 	/**

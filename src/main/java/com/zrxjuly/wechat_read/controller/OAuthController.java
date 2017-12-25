@@ -1,4 +1,4 @@
-package com.zrxjuly.wechat_read.wxmenu.servlet;
+package com.zrxjuly.wechat_read.controller;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -30,7 +30,7 @@ import com.zrxjuly.wechat_read.wxmenu.util.AdvancedUtil;
  */
 @RestController
 @RequestMapping("userInfo")
-public class OAuthServlet {
+public class OAuthController {
 
 	/**
 	 * 注入weChatUserInfoService.
