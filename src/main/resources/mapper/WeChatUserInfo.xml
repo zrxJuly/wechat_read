@@ -68,7 +68,7 @@
 	<!-- 更新用户信息 -->
 	<update id="updateUserInfo" parameterType="WeChatUserInfo">
 		update userinfo 
-		set nickname = #{nickname}, phoneNumber = #{phoneNumber}, email = #{email} 
+		set nickname = #{nickname}, phoneNumber = #{phoneNumber}, email = #{email}, sex = #{sex} 
 		where openid = #{openId}
 	</update>
 </mapper>

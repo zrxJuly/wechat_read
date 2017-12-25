@@ -96,15 +96,14 @@ public class OAuthController {
 		String nickname = request.getParameter("nickname");
 		String phoneNumber = request.getParameter("phoneNumber");
 		String email = request.getParameter("email");
-		//TODO:获取用户性别 性别未存储至数据库.
-		//int sex = Integer.parseInt(request.getParameter("sex"));
+		int sex = Integer.parseInt(request.getParameter("sex"));
 		
 		WeChatUserInfo weChatUserInfo = new WeChatUserInfo();
 		weChatUserInfo.setOpenId(openId);
 		weChatUserInfo.setNickname(nickname);
 		weChatUserInfo.setPhoneNumber(phoneNumber);
 		weChatUserInfo.setEmail(email);
-		// weChatUserInfo.setSex(sex);
+		weChatUserInfo.setSex(sex);
 		
 		weChatUserInfoService.updateUserInfo(weChatUserInfo);
 		return null;
