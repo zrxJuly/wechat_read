@@ -71,4 +71,23 @@
 		set nickname = #{nickname}, phoneNumber = #{phoneNumber}, email = #{email}, sex = #{sex} 
 		where openid = #{openId}
 	</update>
+	
+	<!-- 存储抓取的图书信息. -->
+	<insert id="saveCrawlerBook" parameterType="ShareBook">
+		insert into sharebook(bookName, bookAuthor, doubanScore, bookContent, imgUrl, updateTime) 
+		values 
+		(#{bookName},
+		#{bookAuthor},
+		#{doubanScore},
+		#{bookContent},
+		#{imgUrl},
+		now())
+	</insert>
+	
+	<!-- 好书周荐-检索图书信息. -->
+	<select id="selectBook" resultType="ShareBook">
+		select * 
+		from sharebook 
+		where bookId = 26
+	</select>
 </mapper>

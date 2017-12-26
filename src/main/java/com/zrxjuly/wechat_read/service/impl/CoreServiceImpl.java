@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zrxjuly.wechat_read.dao.WeChatUserInfoDAO;
+import com.zrxjuly.wechat_read.model.ShareBook;
 import com.zrxjuly.wechat_read.model.WeChatUserInfo;
 import com.zrxjuly.wechat_read.service.CoreService;
 import com.zrxjuly.wechat_read.wxmenu.req.TextMessage;
@@ -120,7 +121,6 @@ public class CoreServiceImpl implements CoreService {
 					String longitude = requestMap.get("Longitude");
 					// 精度.
 					String precision = requestMap.get("Precision");
-					System.out.println("latitude:" + latitude + "\n longitude:" + longitude + "\n precision:" + precision);
 					
 					if (latitude != null && longitude != null && precision != null) {
 						WeChatUserInfo weChatUserInfo = new WeChatUserInfo();
@@ -134,32 +134,31 @@ public class CoreServiceImpl implements CoreService {
 					
 					// 事件KEY值，与创建菜单时的key值对应.
 					String eventKey = requestMap.get("EventKey");
-					System.out.println("eventKey ====" + eventKey);
 					
 					// 根据key值判断用户点击的菜单的按钮.
 					if (eventKey.equals("shareYourBook")) {
-						
+						ShareBook shareBook = weChatUserInfoDAO.selectBook();
 						//================添加文章=====================
 						// 文章.
 						Article article = new Article();
 						
 						// 文章标题.
-						article.setTitle("小王子");
+						article.setTitle("本周荐书——《" + shareBook.getBookName() + "》");
 						
 						// 文章描述.
 						article.setDescription("重要的东西是看不见的");
 						
 						// 图片的url.
-						article.setPicUrl("/wechat_read/WebRoot/img/little_prince.jpg");
+						article.setPicUrl(shareBook.getImgUrl());
 						
-						// 点击进行url跳转.
-						article.setUrl("https://book.douban.com/subject/1084336/");
+						// 点击进行url跳转.TODO:2.此处的公网地址也要修改.
+						article.setUrl("http://5ze33x.natappfree.cc/userInfo/shareBookWeekly");
 						
 						// 第二篇文章.
 						Article article2 = new Article();
 						
 						// 第二篇文章的标题.
-						article2.setTitle("《人生》——路遥");
+						article2.setTitle("《小王子》");
 						
 						// 描述内容.
 						article2.setDescription("");

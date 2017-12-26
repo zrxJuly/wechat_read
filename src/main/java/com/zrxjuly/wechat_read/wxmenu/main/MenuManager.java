@@ -73,7 +73,7 @@ public class MenuManager {
 		ViewButton mainBtn3Sub1 = new ViewButton();
 		mainBtn3Sub1.setName("用户信息");
 		mainBtn3Sub1.setType("view");
-		// 对URL进行编码.TODO:此处的公网的地址在每次重启映射工具的时候随forwarding改变.
+		// 对URL进行编码.TODO:1.此处的公网的地址在每次重启映射工具的时候随forwarding改变.
 		String oauthUrl = "http://5ze33x.natappfree.cc/userInfo/userInfoEdit";
 		oauthUrl = CommonUtil.urlEncodeUTF8(oauthUrl);
 		System.out.println(CommonUtil.urlEncodeUTF8(oauthUrl));

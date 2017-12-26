@@ -29,7 +29,7 @@ import com.zrxjuly.wechat_read.wxmenu.util.AdvancedUtil;
  *
  */
 @RestController
-@RequestMapping("userInfo")
+//@RequestMapping("userInfo")
 public class OAuthController {
 
 	/**
@@ -89,7 +89,7 @@ public class OAuthController {
 	 * @param response
 	 * @return
 	 */
-	// TODO:更新用户信息.=user_authorize.jsp 表单验证.
+	// 更新用户信息.
 	@RequestMapping(value= "/updateUserInfo", method=RequestMethod.GET)
 	public String updateUserInfo(HttpServletRequest request, HttpServletResponse response) {
 		String openId = request.getParameter("openId");

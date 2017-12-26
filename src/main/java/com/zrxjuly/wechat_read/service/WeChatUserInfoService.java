@@ -1,5 +1,6 @@
 package com.zrxjuly.wechat_read.service;
 
+import com.zrxjuly.wechat_read.model.ShareBook;
 import com.zrxjuly.wechat_read.model.WeChatUserInfo;
 
 /**
@@ -21,4 +22,10 @@ public interface WeChatUserInfoService {
 	 * @param weChatUserInfo
 	 */
 	void updateUserInfo(WeChatUserInfo weChatUserInfo);
+
+	/**
+	 * 检索图书信息.
+	 * @return
+	 */
+	ShareBook selectBook();
 }

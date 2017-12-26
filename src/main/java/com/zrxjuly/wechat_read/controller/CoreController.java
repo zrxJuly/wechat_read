@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +28,7 @@ import com.zrxjuly.wechat_read.wxmenu.util.SignUtil;
 @RequestMapping("wechat_read")
 public class CoreController extends HttpServlet {
 	private static final long serialVersionUID = -3344978504206357286L;
+	private Log logger = LogFactory.getLog(CoreController.class);
 	
 	/**
 	 * 注入coreService.
@@ -38,27 +41,30 @@ public class CoreController extends HttpServlet {
 	 */
 	@RequestMapping(value= "/coreServlet", method=RequestMethod.GET)
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("=======开始请求校验======");
+		logger.info("开始请求校验");
 		
 		// 微信加密签名.
 		String signature = request.getParameter("signature");
-		System.out.println("signature====" + signature);
+		logger.info("微信加密签名" + signature);
+		
 		// 时间戳.
 		String timestamp = request.getParameter("timestamp");
-		System.out.println("timestamp====" + timestamp);
+		logger.info("时间戳" + timestamp);
+		
 		// 随机数.
 		String nonce = request.getParameter("nonce");
-		System.out.println("nonce====" + nonce);
+		logger.info("随机数" + nonce);
+		
 		// 随机字符串.
 		String echostr = request.getParameter("echostr");
-		System.out.println("echostr====" + echostr);
+		logger.info("随机字符串" + echostr);
 
 		PrintWriter out = response.getWriter();
 
 		// 请求校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败.
 		try {
 			if (SignUtil.checkSignature(signature, timestamp, nonce)) {
-				System.out.println("=======请求校验成功======" + echostr);
+				logger.info("=======请求校验成功======" + echostr);
 				out.print(echostr);
 			}
 		} catch (NullPointerException e) {
@@ -77,7 +83,7 @@ public class CoreController extends HttpServlet {
 		// 将请求、响应的编码均设置为UTF-8（防止中文乱码）
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		System.out.println("请求进入");
+		logger.info("请求进入");
 		
 		// 微信加密签名.
 		String signature = request.getParameter("signature");

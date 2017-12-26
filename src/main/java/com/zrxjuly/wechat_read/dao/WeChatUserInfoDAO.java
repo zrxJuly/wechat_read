@@ -1,5 +1,8 @@
 package com.zrxjuly.wechat_read.dao;
 
+import java.util.List;
+
+import com.zrxjuly.wechat_read.model.ShareBook;
 import com.zrxjuly.wechat_read.model.WeChatUserInfo;
 
 /**
@@ -48,4 +51,17 @@ public interface WeChatUserInfoDAO {
 	 * @param weChatUserInfo
 	 */
 	public void updateUserInfo(WeChatUserInfo weChatUserInfo);
+	
+	/**
+	 * 存储抓取的图书信息.
+	 * @param shareBookList
+	 * @return
+	 */
+	public void saveCrawlerBook(ShareBook shareBook);
+
+	/**
+	 * 好书周荐-检索图书信息.
+	 * @return
+	 */
+	public ShareBook selectBook();
 }

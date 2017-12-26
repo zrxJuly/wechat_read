@@ -1,5 +1,7 @@
 package com.zrxjuly.wechat_read;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.zrxjuly.wechat_read.dao.WeChatUserInfoDAO;
+import com.zrxjuly.wechat_read.model.ShareBook;
 import com.zrxjuly.wechat_read.model.WeChatUserInfo;
+import com.zrxjuly.wechat_read.web_crawler.BookCrawler;
 
 /**
  * wechat_read的测试类.
@@ -97,5 +101,26 @@ public class WechatReadApplicationTests {
 		weChatUserInfo.setPhoneNumber("11111111111");
 		weChatUserInfo.setSex(1);
 		weChatUserInfoDAO.updateUserInfo(weChatUserInfo);
+	}
+	
+	/**
+	 * 爬取豆瓣图书信息存至数据库.
+	 */
+	@Test
+	public void testSaveShareBooks() {
+		BookCrawler bookCrawler = new BookCrawler();
+		List<ShareBook> shareBookList = bookCrawler.crawlerBook();
+		for (ShareBook shareBook : shareBookList) {
+			weChatUserInfoDAO.saveCrawlerBook(shareBook);
+		}
+	}
+	
+	/**
+	 * 好书周荐-检索图书信息.
+	 */
+	@Test
+	public void testSelectBook() {
+		ShareBook shareBook = weChatUserInfoDAO.selectBook();
+		System.out.println(shareBook);
 	}
 }
