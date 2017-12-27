@@ -151,7 +151,7 @@ public class CoreServiceImpl implements CoreService {
 						// 图片的url.
 						article.setPicUrl(shareBook.getImgUrl());
 						
-						// 点击进行url跳转.TODO:2.此处的公网地址也要修改.
+						// 点击进行url跳转.TODO:2.修改公网地址.
 						article.setUrl("http://5ze33x.natappfree.cc/userInfo/shareBookWeekly");
 						
 						// 第二篇文章.
@@ -183,9 +183,50 @@ public class CoreServiceImpl implements CoreService {
 						newsMessage.setArticleCount(articleList.size());
 						newsMessage.setArticles(articleList);
 						respXml = MessageUtil.messageToXml(newsMessage);
-					} else if (eventKey.equals("good")) {
-						textMessage.setContent("");
-						respXml = MessageUtil.messageToXml(textMessage);
+					} else if (eventKey.equals("readArticle")) { // 好文悦读.
+						//================添加文章=====================
+						// 文章.
+						Article article = new Article();
+						
+						// 文章标题.
+						article.setTitle("如果事与愿违，请相信一定另有安排");
+						
+						// 文章描述.
+						article.setDescription("如果事与愿违，请相信一定另有安排");
+						
+						// 图片的url.
+						article.setPicUrl("https://mmbiz.qpic.cn/mmbiz/icB0yCLh6LJskicCqV634eQAQB5XU17vNRic18asttxdFSKF7upCbxU19aAvvHJL4RBhyUSwBYUcrgUwaOK0vsNmw/?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1");
+						
+						article.setUrl("http://mp.weixin.qq.com/s/ba2UyVHV4iw1dVgfhFmAwQ");
+						
+						// 第二篇文章.
+						Article article2 = new Article();
+						
+						// 第二篇文章的标题.
+						article2.setTitle("三毛：逃学为读书");
+						
+						// 描述内容.
+						article2.setDescription("三毛：逃学为读书");
+						
+						// 图片的url.
+						article2.setPicUrl("https://mmbiz.qpic.cn/mmbiz_jpg/JKVuN4j0uHIdqtoGFJ6lmfPicZIiaGgjHOMnIGLcqpia1YkA4k4lbINfYg3P04iciacJoHQp7lFKYibxPKibU11dWjktw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1");
+						
+						article2.setUrl("http://mp.weixin.qq.com/s/EV1fHBRC5-9Y-iImKQR7TQ");
+						// =====================================
+						
+						// 一个或多个文章存放到list中.
+						List<Article> articleList = new ArrayList<Article>();
+						articleList.add(article);
+						articleList.add(article2);
+						// 创建图文消息.
+						NewsMessage newsMessage = new NewsMessage();
+						newsMessage.setToUserName(fromUserName);
+						newsMessage.setFromUserName(toUserName);
+						newsMessage.setCreateTime(new Date().getTime());
+						newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+						newsMessage.setArticleCount(articleList.size());
+						newsMessage.setArticles(articleList);
+						respXml = MessageUtil.messageToXml(newsMessage);
 					}
 				}
 			} else { // 处理用户发送的消息.

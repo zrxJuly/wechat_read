@@ -63,12 +63,16 @@ public class MenuManager {
 		mainBtn1Sub2.setType("view");
 		mainBtn1Sub2.setUrl("http://www.baidu.com");
 		
-		// 主菜单2下的子菜单1.
-		ViewButton mainBtn2Sub1 = new ViewButton();
-		mainBtn2Sub1.setName("网页授权");
-		mainBtn2Sub1.setType("view");
-		mainBtn2Sub1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx70884f69b015fb7a&redirect_uri=http%3A%2F%2Ftz8q67.natappfree.cc%2Fwechat_read%2FoauthServlet&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
-
+		// 主菜单2下的子菜单1---好文悦读.
+//		ViewButton mainBtn2Sub1 = new ViewButton();
+//		mainBtn2Sub1.setName("网页授权");
+//		mainBtn2Sub1.setType("view");
+//		mainBtn2Sub1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx70884f69b015fb7a&redirect_uri=http%3A%2F%2Ftz8q67.natappfree.cc%2Fwechat_read%2FoauthServlet&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+		ClickButton mainBtn2Sub1 = new ClickButton();
+		mainBtn2Sub1.setName("好文悦读");
+		mainBtn2Sub1.setType("click");
+		mainBtn2Sub1.setKey("readArticle");
+		
 		// 主菜单3下的子菜单1-----链接按钮.
 		ViewButton mainBtn3Sub1 = new ViewButton();
 		mainBtn3Sub1.setName("用户信息");
@@ -83,7 +87,20 @@ public class MenuManager {
 				+ "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 		
 		mainBtn3Sub1.setUrl(redirect_url);
-
+		
+		// 主菜单3下的子菜单2-----周荐历史.
+		ViewButton mainBtn3Sub2 = new ViewButton();
+		mainBtn3Sub2.setName("周荐历史");
+		mainBtn3Sub2.setType("view");
+		// TODO：修改公网地址 weekly_history.jsp
+		mainBtn3Sub2.setUrl("http://5ze33x.natappfree.cc/userInfo/weeklyHistory");
+		
+		// 主菜单3下的子菜单2-----我分享的.
+		ClickButton mainBtn3Sub3 = new ClickButton();
+		mainBtn3Sub3.setName("我分享的");
+		mainBtn3Sub3.setType("click");
+		mainBtn3Sub3.setKey("userShare");
+		
 		// 主菜单1.
 		ComplexButton mainBtn1 = new ComplexButton();
 		mainBtn1.setName("享");
@@ -100,7 +117,7 @@ public class MenuManager {
 		ComplexButton mainBtn3 = new ComplexButton();
 		mainBtn3.setName("读");
 		mainBtn3.setSub_button(new Button[] {
-			mainBtn3Sub1
+			mainBtn3Sub1,mainBtn3Sub2,mainBtn3Sub3
 		});
 
 		// 将三个主菜单封装到Menu中.

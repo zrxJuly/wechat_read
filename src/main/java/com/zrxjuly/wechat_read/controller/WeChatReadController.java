@@ -37,9 +37,6 @@ public class WeChatReadController {
 	@Autowired
 	private WeChatUserInfoService weChatUserInfoService;
 
-	@Value("${application.hello:Hello Angel}")
-	private String hello;
-
 	// 返回给前端字符串.
 	@RequestMapping("/hello")
 	public String hello(Map<String, Object> map) {
@@ -111,7 +108,6 @@ public class WeChatReadController {
 	 * @param response
 	 * @return
 	 */
-	// 更新用户信息.
 	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.GET)
 	public String updateUserInfo(HttpServletRequest request, HttpServletResponse response) {
 		String openId = request.getParameter("openId");
@@ -148,4 +144,19 @@ public class WeChatReadController {
 		return mav;
 	}
 
+	/**
+	 * 荐书历史.
+	 */
+	@RequestMapping("/weeklyHistory")
+	public ModelAndView weeklyHistory() {
+		ModelAndView mav = new ModelAndView();
+
+		// 查询推荐图书历史，返回给页面.
+		ShareBook shareBook = weChatUserInfoService.selectBook();
+		
+		mav.addObject("weeklyHistory", shareBook);
+		mav.setViewName("weekly_history");
+		
+		return mav;
+	}
 }
