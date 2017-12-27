@@ -14,6 +14,11 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+/**
+ * 初步学习时写的.
+ * @author zhangrongxiang
+ *
+ */
 public class MessageHandlerUtil {
 	/**
 	 * 解析微信发来的请求（XML）
