@@ -26,7 +26,7 @@ public class WechatReadApplicationTests {
 	@Autowired
 	private WeChatUserInfoDAO weChatUserInfoDAO;
 	
-	public static String fromUserName = "o2eJmwkTOremA_mHcWNfEqfVf_bc";
+	public static String fromUserName = "";
 	
 	/**
 	 * 保存用户信息至数据库.
@@ -95,7 +95,7 @@ public class WechatReadApplicationTests {
 	@Test
 	public void testUpdateUserInfo() {
 		WeChatUserInfo weChatUserInfo = new WeChatUserInfo();
-		weChatUserInfo.setOpenId("o2eJmwqNvRp6Msoe-Rgh13HAmPIc");
+		weChatUserInfo.setOpenId("");
 		weChatUserInfo.setNickname("hoahao");
 		weChatUserInfo.setEmail("22222222222");
 		weChatUserInfo.setPhoneNumber("11111111111");
