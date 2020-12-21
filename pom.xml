@@ -168,7 +168,7 @@
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
-			<version>1.4.6</version>
+			<version>1.4.15</version>
 		</dependency>
 		
 		<!-- jsoup爬虫相关依赖. -->
